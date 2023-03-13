@@ -1,3 +1,13 @@
+
+var buttonEl = document.querySelector("#start-btn");
+
+console.log(buttonEl);
+
+
+
+
+// this is for the timer
+
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
@@ -112,3 +122,5 @@ function onTimesUp() {
       .setAttribute("stroke-dasharray", circleDasharray);
   }
   
+// end of timer logic
+
