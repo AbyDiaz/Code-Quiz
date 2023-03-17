@@ -1,7 +1,82 @@
+var quiz = [
+  {
+    question:" Commonly used data types DO NOT include: ",
+    choices:['Strings', 'Booleans', 'Alerts', 'Numbers'],
+    correctAnswer: 'Alerts'
+  },
+  {
+    question:" The condition in an if/else statement is enclosed with: ",
+    choices:['Quotes', 'Curly Brackets', 'Parenthesis', ' Square Brackets'],
+    correctAnswer: 'Curly Brackets'
+  },
+  {
+    question:" Arrays in JavaScript can be used to store:",
+    choices:['Numbers and Strings', 'other Arrays', 'Booleans', 'All of the above'],
+    correctAnswer: 'All of the above'
+  },
+  {
+    question:" String values must be enclosed within ____ when being assigned to variables",
+    choices:['Commas', 'Curly Brackets', 'Quotes', 'Paranthesis'],
+    correctAnswer: 'Quotes'
+  },
+  {
+    question:" A very useful tool durring development and debugging for printing content to the debugger is:",
+    choices:['JavaScript', 'Terminal/Bash', 'for loops', 'console.log'],
+    correctAnswer: 'console.log'
+  },
 
-var buttonEl = document.querySelector("#start-btn");
+];
 
-console.log(buttonEl);
+var currentQuestion = 0;
+var score = 0;
+var quizContainer = document.getElementById('choices');
+var questionContainer = document.getElementById('question');
+var resultsContainer = document.getElementById('result');
+var submitButton = document.getElementById('submit');
+
+function showQuestion() {
+  questionContainer.textContent = quiz[currentQuestion].question;
+  quizContainer.innerHTML = "";
+  for (var i = 0; i < quiz[currentQuestion].choices.length; i++) {
+    var li = document.createElement('li');
+    var input = document.createElement('input');
+    var label = document.createElement('label');
+    input.type = "radio";
+    input.name = "quiz";
+    input.value = quiz[currentQuestion].choices[i];
+    label.textContent = quiz[currentQuestion].choices[i];
+    li.appendChild(input);
+    li.appendChild(label);
+    quizContainer.appendChild(li);
+  }
+}
+
+function checkAnswers() {
+  var answer = quizContainer.querySelector("input[name='quiz']:checked").value;
+  if(answer === quiz[currentQuestion].correctAnswer) {
+    score++;
+    resultsContainer.textContent = "correct";
+  } else {
+    resultsContainer.textContent = "wrong";
+  }
+  currentQuestion++;
+  if(currentQuestion === quiz.length) {
+    showScore();
+  } else {
+    showQuestion();
+  }
+}
+
+function showScore() {
+  questionContainer.textContent = "quiz done";
+  quizContainer.innerHTML = "";
+  resultsContainer.textContent = "you scored " + score + " out of " + quiz.length;
+  submitButton.style.display = 'none';
+}
+
+submitButton.addEventListener("click", checkAnswers);
+
+showQuestion();
 
 
 
