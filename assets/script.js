@@ -33,6 +33,10 @@ var quizContainer = document.getElementById('choices');
 var questionContainer = document.getElementById('question');
 var resultsContainer = document.getElementById('result');
 var submitButton = document.getElementById('submit');
+var title = document.getElementById('title');
+var intro = document.getElementById('intro');
+var startButton = document.getElementById('startButton');
+
 
 function showQuestion() {
   questionContainer.textContent = quiz[currentQuestion].question;
@@ -77,6 +81,17 @@ function showScore() {
 submitButton.addEventListener("click", checkAnswers);
 
 showQuestion();
+
+function startQuiz() {
+startButton.addEventListener('click', () => {
+  startButton.remove();
+  title.remove();
+  intro.remove();
+})
+
+}
+
+startQuiz();
 
 
 
