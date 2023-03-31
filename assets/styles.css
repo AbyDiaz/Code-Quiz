@@ -104,3 +104,7 @@ main button {
     display: flex;
     justify-content: center;
 }
+
+#submit {
+    display: none;
+}

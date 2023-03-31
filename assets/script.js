@@ -62,6 +62,7 @@ function checkAnswers() {
     resultsContainer.textContent = "correct";
   } else {
     resultsContainer.textContent = "wrong";
+     TIME_LIMIT - 5 ;
   }
   currentQuestion++;
   if(currentQuestion === quiz.length) {
@@ -71,6 +72,22 @@ function checkAnswers() {
   }
 }
 
+/*function checkAnswers() {
+  var answer = quizContainer.querySelector("input[name='quiz']:checked").value;
+  if(answer === quiz[currentQuestion].correctAnswer) {
+    score++;
+    resultsContainer.textContent = "correct";
+  } else {
+    resultsContainer.textContent = "wrong";
+  }
+  currentQuestion++;
+  if(currentQuestion === quiz.length) {
+    showScore();
+  } else {
+    showQuestion();
+  }
+}*/
+
 function showScore() {
   questionContainer.textContent = "quiz done";
   quizContainer.innerHTML = "";
@@ -78,16 +95,16 @@ function showScore() {
   submitButton.style.display = 'none';
 }
 
-submitButton.addEventListener("click", checkAnswers);
-
-showQuestion();
-
 function startQuiz() {
-startButton.addEventListener('click', () => {
+  startButton.addEventListener('click', () => {
   startButton.remove();
   title.remove();
   intro.remove();
-})
+  showQuestion();
+  submitButton.style.display = 'block'; // Show the submit button
+  })
+
+  submitButton.addEventListener("click", checkAnswers);
 
 }
 
