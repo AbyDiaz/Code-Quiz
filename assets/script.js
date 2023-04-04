@@ -1,3 +1,14 @@
+var currentQuestion = 0;
+var score = 0;
+var quizContainer = document.getElementById('choices');
+var questionContainer = document.getElementById('question');
+var resultsContainer = document.getElementById('result');
+var submitButton = document.getElementById('submit');
+var title = document.getElementById('title');
+var intro = document.getElementById('intro');
+var startButton = document.getElementById('startButton');
+
+
 var quiz = [
   {
     question:" Commonly used data types DO NOT include: ",
@@ -27,16 +38,6 @@ var quiz = [
 
 ];
 
-var currentQuestion = 0;
-var score = 0;
-var quizContainer = document.getElementById('choices');
-var questionContainer = document.getElementById('question');
-var resultsContainer = document.getElementById('result');
-var submitButton = document.getElementById('submit');
-var title = document.getElementById('title');
-var intro = document.getElementById('intro');
-var startButton = document.getElementById('startButton');
-
 
 function showQuestion() {
   questionContainer.textContent = quiz[currentQuestion].question;
@@ -62,7 +63,6 @@ function checkAnswers() {
     resultsContainer.textContent = "correct";
   } else {
     resultsContainer.textContent = "wrong";
-     TIME_LIMIT - 5 ;
   }
   currentQuestion++;
   if(currentQuestion === quiz.length) {
@@ -72,27 +72,17 @@ function checkAnswers() {
   }
 }
 
-/*function checkAnswers() {
-  var answer = quizContainer.querySelector("input[name='quiz']:checked").value;
-  if(answer === quiz[currentQuestion].correctAnswer) {
-    score++;
-    resultsContainer.textContent = "correct";
-  } else {
-    resultsContainer.textContent = "wrong";
-  }
-  currentQuestion++;
-  if(currentQuestion === quiz.length) {
-    showScore();
-  } else {
-    showQuestion();
-  }
-}*/
 
 function showScore() {
-  questionContainer.textContent = "quiz done";
+  questionContainer.textContent = "All Done!";
   quizContainer.innerHTML = "";
-  resultsContainer.textContent = "you scored " + score + " out of " + quiz.length;
+  resultsContainer.textContent = "You scored " + score + " out of " + quiz.length;
   submitButton.style.display = 'none';
+  var submitScore = document.getElementById('scoreButton');
+  debugger;
+  submitScore.innerHTML =
+    <input type="text" requiredminlength="2" maxlength="10" size='10'></input>;
+
 }
 
 function startQuiz() {
