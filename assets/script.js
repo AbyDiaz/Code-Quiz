@@ -7,6 +7,9 @@ var submitButton = document.getElementById('submit');
 var title = document.getElementById('title');
 var intro = document.getElementById('intro');
 var startButton = document.getElementById('startButton');
+var submitScore = document.getElementById('scoreButton');
+
+
 
 
 var quiz = [
@@ -78,14 +81,13 @@ function showScore() {
   quizContainer.innerHTML = "";
   resultsContainer.textContent = "You scored " + score + " out of " + quiz.length;
   submitButton.style.display = 'none';
-  var submitScore = document.getElementById('scoreButton');
-  debugger;
-  submitScore.innerHTML =
-    <input type="text" requiredminlength="2" maxlength="10" size='10'></input>;
-
+  submitScore.style.display = 'block';
 }
 
 function startQuiz() {
+
+  submitScore.style.display = 'none';
+
   startButton.addEventListener('click', () => {
   startButton.remove();
   title.remove();
@@ -99,6 +101,11 @@ function startQuiz() {
 }
 
 startQuiz();
+
+function endQuiz() {
+
+
+}
 
 
 
