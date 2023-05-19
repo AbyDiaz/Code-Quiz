@@ -1,5 +1,5 @@
 var currentQuestion = 0;
-var score = 0;
+var score = [];
 var quizContainer = document.getElementById('choices');
 var questionContainer = document.getElementById('question');
 var resultsContainer = document.getElementById('result');
@@ -7,8 +7,8 @@ var submitButton = document.getElementById('submit');
 var title = document.getElementById('title');
 var intro = document.getElementById('intro');
 var startButton = document.getElementById('startButton');
-var highScoresContainer = document.getElementById('highScores');
-var scoreList = document.getElementById('scoreList');
+var highScores = document.querySelector('#highScores');
+var scoreList = document.querySelector('#scoreList');
 
 
 
@@ -43,7 +43,7 @@ var quiz = [
 ];
 
 
-function showQuestion() {
+var showQuestion = function() {
   questionContainer.textContent = quiz[currentQuestion].question;
   quizContainer.innerHTML = "";
   for (var i = 0; i < quiz[currentQuestion].choices.length; i++) {
@@ -60,7 +60,7 @@ function showQuestion() {
   }
 }
 
-function checkAnswers() {
+var checkAnswers = function() {
   var answer = quizContainer.querySelector("input[name='quiz']:checked").value;
   if(answer === quiz[currentQuestion].correctAnswer) {
     score++;
@@ -78,11 +78,14 @@ function checkAnswers() {
 }
 
 
-function showScore() {
+var showScore = function() {
+
+
   questionContainer.textContent = "All Done!";
   quizContainer.innerHTML = "";
   resultsContainer.textContent = "You scored " + score + " out of " + quiz.length;
   submitButton.style.display = 'none';
+
  
     // create a new form element for the user to input their name and submit button
     var nameForm = document.createElement('form');
@@ -90,37 +93,65 @@ function showScore() {
     nameLabel.textContent = "Enter your name:";
     var nameInput = document.createElement('input');
     nameInput.type = "text";
+    nameInput.setAttribute('name', 'nameInput');
+    //nameInput.querySelector('#nameInput');
     var submitName = document.createElement('button');
     submitName.type = "submit";
     submitName.textContent = "Submit";
+    submitName.setAttribute('id', 'submitNameButton');
+    submitName.querySelector('#submitNameButton');
   
-    // add a listener to the form submit button to submit the name and score
-    nameForm.addEventListener('submit', function(event) {
-      event.preventDefault(); // prevent the form from submitting and refreshing the page
-      // do something with the playerName and score (e.g. save it to localStorage)
-    });
+
+  nameForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var playerName = nameInput.value;
+    saveScore(playerName, score);
+  });
   
+  function saveScore(playerName, score) {
+    var listItem = document.createElement('li');
+    listItem.textContent = playerName + ' - ' + score;
+    scoreList.appendChild(listItem);
+  }
+  
+  
+
+
+var scores = []; // Array to store the scores
+
+function saveScore(playerName, score) {
+  scores.push({ playerName: playerName, score: score }); // Store the name and score in the scores array
+  updateScoreList(); // Update the score list
+}
+
+function updateScoreList() {
+  scoreList.innerHTML = ''; // Clear the existing score list
+
+  // Loop through the scores array and create list items for each score
+  scores.forEach(function(score) {
+    var listItem = document.createElement('li');
+    listItem.textContent = score.playerName + ' - ' + score.score;
+    scoreList.appendChild(listItem);
+  });
+}
+
+highScores.addEventListener('click', function() {
+  scoreList.classList.toggle('show');
+});
+    
     // append the form elements to the quizContainer
     nameForm.appendChild(nameLabel);
     nameForm.appendChild(nameInput);
     nameForm.appendChild(submitName);
     quizContainer.appendChild(nameForm);
 
-    submitName.addEventListener('click', () => {
-
-    })
-  
-    submitName.addEventListener('click', () => {
-      questionContainer.remove();
-      resultsContainer.remove();
-      nameForm.remove();
-      nameLabel.remove();
-      nameInput.remove();
-      submitName.remove();
-    })
 }
 
-function startQuiz() {
+
+
+
+
+var startQuiz = function() {
   
   startButton.addEventListener('click', () => {
   startButton.remove();

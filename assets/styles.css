@@ -108,3 +108,12 @@ main button {
 #submit {
     display: none;
 }
+
+#scoreList {
+    display: none;
+  }
+  
+  #scoreList.show {
+    display: block;
+  }
+  
